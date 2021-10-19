@@ -24,4 +24,4 @@ I'm a first-year Ph.D. student in CS at Georgia Tech, advised by [Prof. Moinuddi
 
 I completed my undergrad from the [Indian Institute of Technology Kanpur](https://www.iitk.ac.in/). At IIT Kanpur, I worked with [Prof. Biswabandan Panda](https://www.cse.iitb.ac.in/~biswa/) on cache covert and side-channel attacks. As a rising senior, I also had the opportunity to work as a research intern under the guidance of [Prof. Kanad Basu](https://personal.utdallas.edu/~kanad.basu/) and [Prof. Ramesh Karri](https://engineering.nyu.edu/faculty/ramesh-karri) at [NYU](https://engineering.nyu.edu/).
 
-Also, I possibly have the best Twitter handle in the computer architecture community, [@IdoCompArch_btw](https://twitter.com/IdoCompArch_btw). Did I mention I use Arch, btw?
+Also, I possibly have the best Twitter handle in the computer architecture community, [@IdoCompArch_btw](https://twitter.com/IdoCompArch_btw). Did I mention I use Arch btw?
