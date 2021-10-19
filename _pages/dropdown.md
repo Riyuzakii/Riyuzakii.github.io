@@ -1,12 +1,12 @@
 ---
 layout: page
-title: submenus
-nav: true
-dropdown: true
+title: misc
+nav: false #true
+dropdown: false #true
 children: 
-    - title: publications
-      permalink: /publications/
-    - title: divider
-    - title: projects
-      permalink: /projects/
+    - title: key-bored
+      permalink: /key-bored/
+    - title: memes
+      permalink: /memes/
+        
 ---

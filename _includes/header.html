@@ -7,7 +7,7 @@
       <a class="navbar-brand title font-weight-lighter" href="{{ site.baseurl | prepend: site.url }}/">
        {% if site.title == "blank" %}<span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }}  {{ site.last_name }}{% else %}{{ site.title }}{% endif %}
       </a>
-      {% elsif site.enable_navbar_social %}
+      {% else %}
         <!-- Social Icons -->
         <div class="navbar-brand social">
           {% include social.html %}
