@@ -13,7 +13,7 @@ profile:
     <SPAN STYLE="font-size:10.0pt">That's me at the last in-person ISCA. </SPAN>
     <br>
     <SPAN STYLE="font-weight:bold">Email: </SPAN><a href="mailto:">arohan7@gatech.edu</a> 
-
+    <br>
     <SPAN STYLE="font-weight:bold">Phy Addr: </SPAN><a href="https://goo.gl/maps/v2phz62uELtJWprv7">KACB 1210, Georgia Tech</a>
 
 news: true  # includes a list of news items
