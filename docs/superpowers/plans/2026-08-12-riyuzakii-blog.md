@@ -44,6 +44,8 @@
 
 Verification throughout is **build-and-assert**: run `hugo` and grep the generated HTML in `public/`. There is no unit test framework; the build output is the thing under test.
 
+**Build verification runs without `--minify`.** Hugo's minifier strips quotes from single-token attribute values, turning `id="sn-0"` into `id=sn-0`, which silently breaks literal greps. Verification steps therefore build with a bare `~/.local/bin/hugo`. Only Task 8's pre-push check and CI use `--minify`, and neither greps the output. Note that CSS is minified regardless of the flag, because `head.html` pipes it through `| minify` — CSS assertions must stay whitespace- and quote-agnostic.
+
 ---
 
 ### Task 1: Hugo skeleton that builds
@@ -555,7 +557,7 @@ Append to the end of the file:
 - [ ] **Step 4: Build and verify the CSS pipeline and layout rules**
 
 ```bash
-cd /home/light/git/website && rm -rf public && ~/.local/bin/hugo --minify
+cd /home/light/git/website && rm -rf public && ~/.local/bin/hugo
 CSS=$(find public/css -name 'main*.css' | head -1); echo "built: $CSS"
 grep -q 'counter-increment:sidenote-counter\|counter-increment: sidenote-counter' "$CSS" && echo "COUNTER OK"
 grep -q 'et-book-roman.woff' "$CSS" && echo "FONT REF OK"
@@ -658,7 +660,7 @@ Inline `code` is styled too.
 - [ ] **Step 5: Build and verify highlighting is server-rendered**
 
 ```bash
-cd /home/light/git/website && rm -rf public && ~/.local/bin/hugo --minify
+cd /home/light/git/website && rm -rf public && ~/.local/bin/hugo
 grep -q 'class="highlight"' public/hello-world/index.html && echo "HIGHLIGHT BLOCK OK"
 grep -q '<span class="k' public/hello-world/index.html && echo "TOKEN SPANS OK"
 grep -c '<script' public/hello-world/index.html
@@ -774,10 +776,10 @@ Insert before the closing `</nav>`:
 - [ ] **Step 5: Build and verify**
 
 ```bash
-cd /home/light/git/website && rm -rf public && ~/.local/bin/hugo --minify
+cd /home/light/git/website && rm -rf public && ~/.local/bin/hugo
 CSS=$(find public/css -name 'main*.css' | head -1)
 grep -q 'prefers-color-scheme' "$CSS" && echo "OS PREF OK"
-grep -q 'data-theme="dark"' "$CSS" && echo "MANUAL DARK OK"
+grep -q 'data-theme=.dark.' "$CSS" && echo "MANUAL DARK OK"
 grep -q 'localStorage' public/hello-world/index.html && echo "TOGGLE OK"
 ```
 
@@ -856,7 +858,7 @@ Add to `hugo.toml`:
 - [ ] **Step 4: Build and verify grouping and the feed**
 
 ```bash
-cd /home/light/git/website && rm -rf public && ~/.local/bin/hugo --minify
+cd /home/light/git/website && rm -rf public && ~/.local/bin/hugo
 grep -q '2026' public/index.html && grep -q '2025' public/index.html && echo "YEAR GROUPS OK"
 grep -c 'year-heading' public/index.html
 test -f public/index.xml && echo "FEED EXISTS"
