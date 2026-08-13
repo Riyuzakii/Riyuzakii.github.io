@@ -1,0 +1,192 @@
+@font-face {
+  font-family: "ET Book";
+  src: url("/fonts/et-book-roman.woff") format("woff");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "ET Book";
+  src: url("/fonts/et-book-italic.woff") format("woff");
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "ET Book";
+  src: url("/fonts/et-book-bold.woff") format("woff");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+
+:root {
+  --bg: #fffff8;
+  --fg: #111111;
+  --muted: #6b6b60;
+  --accent: #a00000;
+  --rule: #dcdcd0;
+  --code-bg: #f4f4ec;
+
+  --main-col: 40rem;    /* ~68ch at this size */
+  --margin-col: 18rem;
+  --gutter: 2.5rem;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { font-size: 100%; }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "ET Book", Palatino, "Palatino Linotype", Georgia, serif;
+  font-size: 1.2rem;
+  line-height: 1.7;
+  margin: 0;
+  padding: 0 2rem;
+  counter-reset: sidenote-counter;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ---- Layout -------------------------------------------------------- */
+/* The page is one column wide plus a margin column. Notes float into the
+   margin with a negative offset, which keeps each note vertically next to
+   the paragraph that references it. */
+
+.site-header, .site-footer, main {
+  max-width: calc(var(--main-col) + var(--gutter) + var(--margin-col));
+  margin: 0 auto;
+}
+
+article { max-width: var(--main-col); }
+
+article > * { max-width: var(--main-col); }
+
+/* ---- Header / footer ------------------------------------------------ */
+
+.site-header {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+  padding: 2.5rem 0 1rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 3rem;
+}
+.site-name { font-size: 1.15rem; font-weight: 700; text-decoration: none; color: var(--fg); }
+.site-header nav { display: flex; gap: 1.25rem; margin-left: auto; }
+.site-header nav a { color: var(--muted); text-decoration: none; font-size: 0.95rem; }
+.site-header nav a:hover { color: var(--accent); }
+
+.site-footer {
+  margin-top: 5rem;
+  padding: 1.5rem 0 3rem;
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* ---- Typography ----------------------------------------------------- */
+
+h1 { font-weight: 400; font-size: 2.2rem; line-height: 1.2; margin: 0 0 0.5rem; }
+h2 { font-weight: 400; font-style: italic; font-size: 1.6rem; margin: 2.5rem 0 0.5rem; }
+h3 { font-weight: 400; font-style: italic; font-size: 1.3rem; margin: 2rem 0 0.5rem; }
+
+p { margin: 0 0 1.4rem; }
+
+a { color: var(--fg); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { color: var(--accent); }
+
+blockquote {
+  margin: 0 0 1.4rem;
+  padding-left: 1.5rem;
+  border-left: 2px solid var(--rule);
+  font-style: italic;
+  color: var(--muted);
+}
+
+hr { border: 0; border-top: 1px solid var(--rule); margin: 3rem 0; }
+
+img { max-width: 100%; height: auto; }
+
+.post-meta { color: var(--muted); font-size: 0.95rem; margin-bottom: 2.5rem; }
+
+/* ---- Post index ------------------------------------------------------ */
+
+.post-list { list-style: none; padding: 0; margin: 0 0 2.5rem; }
+.post-list li { display: flex; gap: 1.25rem; margin-bottom: 0.5rem; }
+.post-list time { color: var(--muted); font-variant-numeric: tabular-nums; flex: 0 0 4.5rem; }
+.post-list a { text-decoration: none; }
+.post-list a:hover { text-decoration: underline; }
+.year-heading { font-size: 1rem; color: var(--muted); margin: 2.5rem 0 0.75rem; font-style: italic; }
+
+/* ---- Margin notes ---------------------------------------------------- */
+
+.sidenote, .marginnote {
+  float: right;
+  clear: right;
+  width: var(--margin-col);
+  margin-right: calc(-1 * (var(--margin-col) + var(--gutter)));
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--muted);
+  position: relative;
+  vertical-align: baseline;
+}
+
+/* markdownify may wrap the note in a paragraph; keep it flush. */
+.sidenote > p, .marginnote > p { margin: 0; }
+
+.sidenote-number { counter-increment: sidenote-counter; }
+
+.sidenote-number::after {
+  content: counter(sidenote-counter);
+  font-size: 0.75rem;
+  top: -0.5rem;
+  left: 0.1rem;
+  position: relative;
+  vertical-align: baseline;
+  color: var(--accent);
+}
+
+.sidenote::before {
+  content: counter(sidenote-counter) " ";
+  font-size: 0.75rem;
+  top: -0.5rem;
+  position: relative;
+  vertical-align: baseline;
+  color: var(--accent);
+}
+
+.marginfigure img { width: 100%; display: block; margin-bottom: 0.4rem; }
+.marginfigure .caption { display: block; }
+
+/* On a wide screen the checkbox and the ⊕ marker are pure mechanism. */
+input.margin-toggle { display: none; }
+label.sidenote-number { display: inline-block; max-height: 2rem; }
+label.margin-toggle:not(.sidenote-number) { display: none; }
+
+/* ---- Collapse: below this width there is no margin to write in ------- */
+
+@media (max-width: 76rem) {
+  body { padding: 0 1.25rem; }
+
+  label.margin-toggle:not(.sidenote-number) {
+    display: inline;
+    color: var(--accent);
+    cursor: pointer;
+  }
+  label.sidenote-number { cursor: pointer; }
+
+  .sidenote, .marginnote { display: none; }
+
+  .margin-toggle:checked + .sidenote,
+  .margin-toggle:checked + .marginnote {
+    display: block;
+    float: left;
+    left: 1rem;
+    clear: both;
+    width: 95%;
+    margin: 1rem 2.5%;
+    position: relative;
+    padding: 0.75rem 1rem;
+    background: var(--code-bg);
+    border-radius: 3px;
+    vertical-align: baseline;
+  }
+}
