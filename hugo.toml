@@ -2,6 +2,7 @@ baseURL = "https://riyuzakii.github.io/"
 locale = "en-us"
 title = "Aditya Rohan"
 enableRobotsTXT = true
+disableKinds = ["taxonomy", "term"]
 
 [permalinks]
   posts = "/:slug/"
