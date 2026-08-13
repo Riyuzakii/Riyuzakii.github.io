@@ -1,0 +1,7 @@
+{{- $id := printf "mf-%d" .Ordinal -}}
+<label for="{{ $id }}" class="margin-toggle">&#8853;</label>
+<input type="checkbox" id="{{ $id }}" class="margin-toggle">
+<span class="marginnote marginfigure">
+  <img src="{{ .Get "src" }}" alt="{{ .Get "alt" }}">
+  {{ with .Get "caption" }}<span class="caption">{{ . | markdownify }}</span>{{ end }}
+</span>
