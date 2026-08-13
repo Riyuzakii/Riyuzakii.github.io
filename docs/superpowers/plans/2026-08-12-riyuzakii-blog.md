@@ -70,7 +70,7 @@ resources/_gen/
 
 ```toml
 baseURL = "https://riyuzakii.github.io/"
-languageCode = "en-us"
+locale = "en-us"
 title = "Aditya Rohan"
 enableRobotsTXT = true
 
