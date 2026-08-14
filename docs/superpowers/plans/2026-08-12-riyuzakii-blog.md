@@ -779,7 +779,7 @@ Insert before the closing `</nav>`:
 cd /home/light/git/website && rm -rf public && ~/.local/bin/hugo
 CSS=$(find public/css -name 'main*.css' | head -1)
 grep -q 'prefers-color-scheme' "$CSS" && echo "OS PREF OK"
-grep -q 'data-theme=.dark.' "$CSS" && echo "MANUAL DARK OK"
+grep -q 'data-theme=.\?dark' "$CSS" && echo "MANUAL DARK OK"
 grep -q 'localStorage' public/hello-world/index.html && echo "TOGGLE OK"
 ```
 
