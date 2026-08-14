@@ -190,3 +190,37 @@ label.margin-toggle:not(.sidenote-number) { display: none; }
     vertical-align: baseline;
   }
 }
+
+/* Dark mode. The default follows the OS; [data-theme] wins when the reader
+   has made an explicit choice. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #151515;
+    --fg: #e8e8e0;
+    --muted: #9a9a8c;
+    --accent: #e08a7a;
+    --rule: #333330;
+    --code-bg: #1e1e1c;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #151515;
+  --fg: #e8e8e0;
+  --muted: #9a9a8c;
+  --accent: #e08a7a;
+  --rule: #333330;
+  --code-bg: #1e1e1c;
+}
+
+.theme-toggle {
+  background: none;
+  border: 0;
+  padding: 0;
+  margin-left: 1.25rem;
+  font: inherit;
+  font-size: 0.95rem;
+  color: var(--muted);
+  cursor: pointer;
+}
+.theme-toggle:hover { color: var(--accent); }

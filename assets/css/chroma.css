@@ -98,3 +98,19 @@ code {
 /* GenericTraceback */ .chroma .gt { color:#a00 }
 /* GenericUnderline */ .chroma .gl { text-decoration:underline }
 /* TextWhitespace */ .chroma .w { color:#bbb }
+
+/* The trac palette is tuned for light backgrounds; soften and re-hue the
+   common token classes when the page is dark. */
+:root[data-theme="dark"] .chroma .k,
+:root[data-theme="dark"] .chroma .kd,
+:root[data-theme="dark"] .chroma .kn,
+:root[data-theme="dark"] .chroma .kr { color: #c9a0dc; }
+:root[data-theme="dark"] .chroma .s,
+:root[data-theme="dark"] .chroma .s1,
+:root[data-theme="dark"] .chroma .s2 { color: #9ecf87; }
+:root[data-theme="dark"] .chroma .c,
+:root[data-theme="dark"] .chroma .c1,
+:root[data-theme="dark"] .chroma .cm { color: #7d7d70; font-style: italic; }
+:root[data-theme="dark"] .chroma .nf { color: #7fb3d5; }
+:root[data-theme="dark"] .chroma .m,
+:root[data-theme="dark"] .chroma .mi { color: #e0b070; }
