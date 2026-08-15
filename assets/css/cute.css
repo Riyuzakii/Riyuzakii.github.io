@@ -161,9 +161,6 @@
   margin-left: 0.35rem;
 }
 
-/* Deliberately NOT scoped under [data-style="cute"]: this marks links to cute
-   posts from the home page, which is itself an ordinary page. */
-.cute-marker {
-  color: var(--accent);
-  margin-left: 0.4rem;
-}
+/* .cute-marker is NOT defined here. It marks links from the home page, which
+   is an ordinary page and never loads this sheet, so its rule lives in
+   main.css alongside the rest of the post-index styling. */

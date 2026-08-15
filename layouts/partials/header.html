@@ -1,5 +1,8 @@
 <header class="site-header">
   <a class="site-name" href="{{ "/" | relURL }}">{{ .Site.Title }}</a>
+  {{- /* Decoration only. aria-hidden so a screen reader doesn't announce
+         "star, degree sign, sparkle" after the site name. */}}
+  {{ if partial "is-cute.html" . }}<span class="sparkle" aria-hidden="true">⋆｡°✩</span>{{ end }}
   <nav>
     {{ range .Site.Menus.main }}<a href="{{ .URL | relURL }}">{{ .Name }}</a>{{ end }}
     {{- /* Label and handler are set by the script in head.html, which is the

@@ -13,6 +13,9 @@
         <li>
           <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 02" }}</time>
           <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          {{- /* Outside the anchor on purpose, so the heart doesn't become
+                 part of the link's accessible name. */}}
+          {{ if partial "is-cute.html" . }}<span class="cute-marker" aria-hidden="true">♡</span>{{ end }}
         </li>
       {{ end }}
     </ul>

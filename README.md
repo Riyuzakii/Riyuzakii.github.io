@@ -30,6 +30,24 @@ An aside nothing points at.{{< marginnote "No number on this one." >}}
 {{< marginfigure src="/img/plot.png" alt="Latency plot" caption="Fig 1." >}}
 ```
 
+## Cute posts
+
+A post about the CuTe DSL opts into a softer treatment — dotted ground, rounded
+type, heart-marked sidenotes — with one tag:
+
+```yaml
+---
+title: "Tiling with CuTe layouts"
+date: 2026-03-04
+tags: ["cute-dsl"]
+---
+```
+
+Nothing else changes: same shortcodes, same margin-note behaviour, same feed.
+The home page marks the post with a ♡. Untagged posts are completely
+unaffected and don't download the extra stylesheet or font. There are no tag
+pages — the tag is read as metadata only.
+
 ## Local setup
 
 Hugo **extended** v0.164.0, matching the pin in `.github/workflows/deploy.yml`:
