@@ -2,6 +2,7 @@
 title: "Hello World"
 date: 2026-08-12
 slug: "hello-world"
+tags: ["cute-dsl"]
 draft: false
 ---
 
