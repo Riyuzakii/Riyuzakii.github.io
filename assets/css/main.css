@@ -22,6 +22,35 @@
   --rule: #dcdcd0;
   --code-bg: #f4f4ec;
 
+  /* Syntax-highlighting tokens. chroma.css consumes these unconditionally;
+     the light values below are the upstream `trac` palette. The dark values
+     live in the two dark-mode blocks at the foot of this file so that BOTH
+     the OS-preference path and the explicit-toggle path get them. Do not
+     hardcode token colours in chroma.css. */
+  --tok-kw: inherit;
+  --tok-type: #445588;
+  --tok-var: #008080;
+  --tok-entity: #800080;
+  --tok-func: #990000;
+  --tok-ns: #555555;
+  --tok-tag: #000080;
+  --tok-grey: #999999;
+  --tok-str: #bb8844;
+  --tok-regex: #808000;
+  --tok-num: #009999;
+  --tok-comment: #998877;
+  --tok-err: #a61717;
+  --tok-err-bg: #e3d2d2;
+  --tok-linenum: #7f7f7f;
+  --tok-line-hl: #e5e5e5;
+  --tok-diff-fg: #000000;
+  --tok-diff-del: #ffdddd;
+  --tok-diff-ins: #ddffdd;
+  --tok-generic-err: #aa0000;
+  --tok-output: #888888;
+  --tok-subhead: #aaaaaa;
+  --tok-ws: #bbbbbb;
+
   --main-col: 40rem;    /* ~68ch at this size */
   --margin-col: 18rem;
   --gutter: 2.5rem;
@@ -192,7 +221,13 @@ label.margin-toggle:not(.sidenote-number) { display: none; }
 }
 
 /* Dark mode. The default follows the OS; [data-theme] wins when the reader
-   has made an explicit choice. */
+   has made an explicit choice.
+
+   THE TWO BLOCKS BELOW MUST STAY IDENTICAL. The first covers a reader whose
+   OS is dark and who has never touched the toggle; the second covers an
+   explicit choice. A value added to one and not the other is invisible to
+   roughly half the dark-mode audience — that is exactly how the syntax
+   palette came to be light-only on OS-dark machines. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #151515;
@@ -201,6 +236,30 @@ label.margin-toggle:not(.sidenote-number) { display: none; }
     --accent: #e08a7a;
     --rule: #333330;
     --code-bg: #1e1e1c;
+
+    --tok-kw: #c9a0dc;
+    --tok-type: #8ab4d8;
+    --tok-var: #7fc9c0;
+    --tok-entity: #d0a0e0;
+    --tok-func: #7fb3d5;
+    --tok-ns: #a8a89a;
+    --tok-tag: #7fb3d5;
+    --tok-grey: #9a9a8c;
+    --tok-str: #9ecf87;
+    --tok-regex: #c8c87a;
+    --tok-num: #e0b070;
+    --tok-comment: #7d7d70;
+    --tok-err: #f2a0a0;
+    --tok-err-bg: #3a2222;
+    --tok-linenum: #6f6f66;
+    --tok-line-hl: #2a2a26;
+    --tok-diff-fg: #e8e8e0;
+    --tok-diff-del: #3a2222;
+    --tok-diff-ins: #1f3320;
+    --tok-generic-err: #f08a8a;
+    --tok-output: #a0a094;
+    --tok-subhead: #86867a;
+    --tok-ws: #3a3a36;
   }
 }
 
@@ -211,6 +270,30 @@ label.margin-toggle:not(.sidenote-number) { display: none; }
   --accent: #e08a7a;
   --rule: #333330;
   --code-bg: #1e1e1c;
+
+  --tok-kw: #c9a0dc;
+  --tok-type: #8ab4d8;
+  --tok-var: #7fc9c0;
+  --tok-entity: #d0a0e0;
+  --tok-func: #7fb3d5;
+  --tok-ns: #a8a89a;
+  --tok-tag: #7fb3d5;
+  --tok-grey: #9a9a8c;
+  --tok-str: #9ecf87;
+  --tok-regex: #c8c87a;
+  --tok-num: #e0b070;
+  --tok-comment: #7d7d70;
+  --tok-err: #f2a0a0;
+  --tok-err-bg: #3a2222;
+  --tok-linenum: #6f6f66;
+  --tok-line-hl: #2a2a26;
+  --tok-diff-fg: #e8e8e0;
+  --tok-diff-del: #3a2222;
+  --tok-diff-ins: #1f3320;
+  --tok-generic-err: #f08a8a;
+  --tok-output: #a0a094;
+  --tok-subhead: #86867a;
+  --tok-ws: #3a3a36;
 }
 
 .theme-toggle {
