@@ -1,4 +1,10 @@
+{{- /* .Ordinal counts every shortcode on the page, so it is only good for
+       minting a unique id. The visible number comes from a CSS counter over
+       .sidenote-number elements and the accessible name has to agree with
+       it, so keep a sidenote-only tally. */ -}}
+{{- .Page.Store.Add "sidenote-count" 1 -}}
+{{- $n := .Page.Store.Get "sidenote-count" -}}
 {{- $id := printf "sn-%d" .Ordinal -}}
-<label for="{{ $id }}" class="margin-toggle sidenote-number"></label>
+<label for="{{ $id }}" class="margin-toggle sidenote-number" aria-label="note {{ $n }}"></label>
 <input type="checkbox" id="{{ $id }}" class="margin-toggle">
-<span class="sidenote">{{ .Get 0 | markdownify }}</span>
+<span class="sidenote" role="doc-footnote">{{ .Get 0 | markdownify }}</span>

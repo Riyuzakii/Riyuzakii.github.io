@@ -1,7 +1,18 @@
+{{- $src := .Get "src" -}}
+{{- $alt := .Get "alt" -}}
+{{- if not $src -}}
+  {{- errorf "marginfigure: missing required parameter %q in %s" "src" .Position -}}
+{{- end -}}
+{{- if not $alt -}}
+  {{- errorf "marginfigure: missing required parameter %q in %s — a figure with no alternative text is invisible to screen readers" "alt" .Position -}}
+{{- end -}}
+{{- /* relURL so that src="img/plot.png" resolves against the site root rather
+       than against the page's own URL, where it would 404 silently. An
+       already-absolute URL is passed through unchanged. */ -}}
 {{- $id := printf "mf-%d" .Ordinal -}}
-<label for="{{ $id }}" class="margin-toggle">&#8853;</label>
+<label for="{{ $id }}" class="margin-toggle" aria-label="figure">&#8853;</label>
 <input type="checkbox" id="{{ $id }}" class="margin-toggle">
-<span class="marginnote marginfigure">
-  <img src="{{ .Get "src" }}" alt="{{ .Get "alt" }}">
+<span class="marginnote marginfigure" role="note">
+  <img src="{{ $src | relURL }}" alt="{{ $alt }}">
   {{ with .Get "caption" }}<span class="caption">{{ . | markdownify }}</span>{{ end }}
 </span>

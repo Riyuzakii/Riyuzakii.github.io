@@ -1,4 +1,4 @@
 {{- $id := printf "mn-%d" .Ordinal -}}
-<label for="{{ $id }}" class="margin-toggle">&#8853;</label>
+<label for="{{ $id }}" class="margin-toggle" aria-label="aside">&#8853;</label>
 <input type="checkbox" id="{{ $id }}" class="margin-toggle">
-<span class="marginnote">{{ .Get 0 | markdownify }}</span>
+<span class="marginnote" role="note">{{ .Get 0 | markdownify }}</span>
