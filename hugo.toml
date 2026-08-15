@@ -13,6 +13,15 @@ disableKinds = ["taxonomy", "term"]
 [services.rss]
   limit = 20
 
+# Hugo's built-in RSS output format is plain text (no HTML-escaping) by
+# default, but that default is lost once layouts/index.rss.xml overrides
+# the home page's RSS template — without this, the custom template gets
+# rendered through html/template and the feed's leading "<?xml ...?>" is
+# HTML-entity-escaped into "&lt;?xml ...?>", corrupting the XML. Re-declare
+# it explicitly so the feed stays well-formed.
+[outputFormats.RSS]
+  isPlainText = true
+
 [markup.goldmark.renderer]
   unsafe = true
 
