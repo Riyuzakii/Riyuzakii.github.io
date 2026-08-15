@@ -27,6 +27,13 @@
      live in the two dark-mode blocks at the foot of this file so that BOTH
      the OS-preference path and the explicit-toggle path get them. Do not
      hardcode token colours in chroma.css. */
+  /* trac gives keywords weight but no colour. `inherit` is a CSS-wide keyword,
+     so it is interpreted at declaration level: on :root, whose parent has no
+     --tok-kw, this resolves to the guaranteed-invalid value, which makes
+     `color: var(--tok-kw)` invalid at computed-value time and therefore
+     `unset` — and for an inherited property like color, unset is inherit.
+     Either way the keyword takes the surrounding text colour, which is what
+     trac renders. The dark blocks below give it a real colour. */
   --tok-kw: inherit;
   --tok-type: #445588;
   --tok-var: #008080;
@@ -38,7 +45,7 @@
   --tok-str: #bb8844;
   --tok-regex: #808000;
   --tok-num: #009999;
-  --tok-comment: #998877;
+  --tok-comment: #999988;
   --tok-err: #a61717;
   --tok-err-bg: #e3d2d2;
   --tok-linenum: #7f7f7f;
