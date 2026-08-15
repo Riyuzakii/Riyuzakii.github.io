@@ -1055,8 +1055,8 @@ Expected: `main`.
 - [ ] **Step 5: Switch Pages to the Actions source**
 
 ```bash
-gh api -X POST repos/Riyuzakii/Riyuzakii.github.io/pages -f build_type=actions 2>/dev/null \
-  || gh api -X PUT repos/Riyuzakii/Riyuzakii.github.io/pages -f build_type=actions
+gh api -X POST repos/Riyuzakii/Riyuzakii.github.io/pages -f build_type=workflow 2>/dev/null \
+  || gh api -X PUT repos/Riyuzakii/Riyuzakii.github.io/pages -f build_type=workflow
 gh api repos/Riyuzakii/Riyuzakii.github.io/pages --jq '{status,html_url,build_type}'
 ```
 
