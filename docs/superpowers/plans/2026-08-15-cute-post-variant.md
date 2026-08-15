@@ -372,7 +372,7 @@ Note `.cute-marker` is deliberately **not** scoped under `[data-style="cute"]`: 
 cd /home/light/git/website && rm -rf public && ~/.local/bin/hugo
 CSS=$(find public/css -name 'cute*.css' | head -1); echo "built: $CSS"
 grep -q 'prefers-color-scheme' "$CSS" && echo "OS DARK PATH OK"
-grep -q 'data-style=.cute.\]\[data-theme=.dark.\]' "$CSS" && echo "EXPLICIT DARK PATH OK"
+grep -q 'data-style=.\?cute.\?\]\[data-theme=.\?dark.\?\]' "$CSS" && echo "EXPLICIT DARK PATH OK"
 grep -c 'ff9ec4' "$CSS"
 grep -q 'nunito-regular.woff2' "$CSS" && echo "FONT REF OK"
 grep -q 'radial-gradient' "$CSS" && echo "DOTTED GROUND OK"

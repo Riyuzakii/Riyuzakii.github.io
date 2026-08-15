@@ -22,3 +22,148 @@
   font-style: italic;
   font-display: swap;
 }
+
+/* ---- Palette --------------------------------------------------------- */
+/* Only the theme's existing custom properties are re-declared. The --tok-*
+   syntax tokens are deliberately NOT forked: code keeps the same highlighting
+   in cute mode, just on a different ground.
+   Every value here is contrast-checked at >= 4.5:1 against the ground it
+   actually sits on. Note --muted is checked against BOTH --bg and --code-bg,
+   because an expanded sidenote is muted text on the code ground. */
+
+:root[data-style="cute"] {
+  --bg: #fffaf7;
+  --fg: #3b2f38;
+  --muted: #7a6672;
+  --accent: #c2185b;
+  --rule: #f0d9e4;
+  --code-bg: #fdf2f6;
+  --dot: #f3e1ea;
+
+  --cute-radius: 14px;
+}
+
+/* Dark cute mode is declared TWICE on purpose, and the two blocks must stay
+   declaration-identical. The first covers a reader whose OS is dark and who
+   has never touched the toggle; the second covers an explicit choice.
+   Declaring only the second is what left syntax colours unreadable for most
+   dark-mode readers in the original build — see the final review. */
+@media (prefers-color-scheme: dark) {
+  :root[data-style="cute"]:not([data-theme="light"]) {
+    --bg: #241d24;
+    --fg: #ede4ea;
+    --muted: #b09aa8;
+    --accent: #ff9ec4;
+    --rule: #3d323c;
+    --code-bg: #2e2530;
+    --dot: #362c35;
+  }
+}
+
+:root[data-style="cute"][data-theme="dark"] {
+  --bg: #241d24;
+  --fg: #ede4ea;
+  --muted: #b09aa8;
+  --accent: #ff9ec4;
+  --rule: #3d323c;
+  --code-bg: #2e2530;
+  --dot: #362c35;
+}
+
+/* ---- Ground ---------------------------------------------------------- */
+/* Grid paper drawn as a gradient — no image file, no extra request. */
+
+:root[data-style="cute"] body {
+  font-family: "Nunito", ui-rounded, "Segoe UI Rounded", system-ui, sans-serif;
+  background-image: radial-gradient(circle, var(--dot) 1.2px, transparent 1.2px);
+  background-size: 22px 22px;
+  background-position: -11px -11px;
+}
+
+/* ---- Shapes ---------------------------------------------------------- */
+/* Anything carrying text gets a solid fill so the dotted ground never sits
+   behind it. */
+
+:root[data-style="cute"] pre,
+:root[data-style="cute"] pre.chroma {
+  background: var(--code-bg);
+  border-radius: var(--cute-radius);
+}
+
+:root[data-style="cute"] :not(pre) > code {
+  background: var(--code-bg);
+  border-radius: 6px;
+}
+
+:root[data-style="cute"] table {
+  background: var(--bg);
+  border-radius: var(--cute-radius);
+  overflow: hidden;
+}
+
+:root[data-style="cute"] blockquote {
+  background: var(--code-bg);
+  border-left-style: dotted;
+  border-radius: var(--cute-radius);
+  padding: 0.75rem 1rem;
+}
+
+/* Soft dotted rules in place of the hairlines. */
+:root[data-style="cute"] .site-header,
+:root[data-style="cute"] .site-footer {
+  border-color: var(--rule);
+  border-style: dotted;
+  border-width: 0;
+}
+:root[data-style="cute"] .site-header { border-bottom-width: 2px; }
+:root[data-style="cute"] .site-footer { border-top-width: 2px; }
+:root[data-style="cute"] hr { border-top: 2px dotted var(--rule); }
+
+/* ---- Type ------------------------------------------------------------ */
+/* A rounded sans at 400 reads as too light against body text at the same
+   weight, so headings take weight instead of the italic ET Book leaned on. */
+
+:root[data-style="cute"] h1 { font-weight: 700; letter-spacing: -0.01em; }
+:root[data-style="cute"] h2,
+:root[data-style="cute"] h3,
+:root[data-style="cute"] h4 { font-weight: 700; font-style: normal; }
+:root[data-style="cute"] .site-name { font-weight: 700; }
+
+/* ---- Margin notes ---------------------------------------------------- */
+/* The number is KEPT alongside the heart. A bare ♡ on every marker makes it
+   impossible to tell which marker belongs to which note once two or three
+   appear near each other — the one thing margin notes exist to make
+   effortless. The heart is generated content, so it never enters the
+   accessible name; the label's aria-label still carries "note N". */
+
+:root[data-style="cute"] .sidenote-number::after {
+  content: "♡" counter(sidenote-counter);
+}
+
+:root[data-style="cute"] .sidenote::before {
+  content: "♡" counter(sidenote-counter) " ";
+}
+
+/* The expanded (narrow-viewport) note sits on a solid rounded card so the
+   dotted ground stays out from under its text. */
+:root[data-style="cute"] .margin-toggle:checked + .sidenote,
+:root[data-style="cute"] .margin-toggle:checked + .marginnote {
+  background: var(--code-bg);
+  border-radius: var(--cute-radius);
+}
+
+/* ---- Decorative flourishes ------------------------------------------- */
+/* Both carry aria-hidden in the markup; this only styles them. */
+
+:root[data-style="cute"] .sparkle {
+  color: var(--accent);
+  font-size: 0.8em;
+  margin-left: 0.35rem;
+}
+
+/* Deliberately NOT scoped under [data-style="cute"]: this marks links to cute
+   posts from the home page, which is itself an ordinary page. */
+.cute-marker {
+  color: var(--accent);
+  margin-left: 0.4rem;
+}
