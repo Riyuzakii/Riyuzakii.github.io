@@ -11,6 +11,13 @@
 <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
 {{ $chroma := resources.Get "css/chroma.css" | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $chroma.RelPermalink }}" integrity="{{ $chroma.Data.Integrity }}">
+{{- /* Loaded last so its equal-specificity rules win over main.css and
+       chroma.css, and only on cute pages so an ordinary post downloads
+       neither this sheet nor the font it pulls in. */}}
+{{ if partial "is-cute.html" . }}
+  {{ $cute := resources.Get "css/cute.css" | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $cute.RelPermalink }}" integrity="{{ $cute.Data.Integrity }}">
+{{ end }}
 <script>
   (function () {
     var root = document.documentElement;

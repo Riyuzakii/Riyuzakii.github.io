@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.Language.Lang }}">
+<html lang="{{ .Site.Language.Lang }}"{{ if partial "is-cute.html" . }} data-style="cute"{{ end }}>
 <head>{{ partial "head.html" . }}</head>
 <body>
   {{ partial "header.html" . }}

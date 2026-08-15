@@ -1,0 +1,6 @@
+{{- /* Single source of truth for the cute variant. Three call sites need this
+       answer — baseof (the attribute), head (the stylesheet link) and index
+       (the marker) — and a copy-pasted `in .Params.tags` in each is three
+       places to forget when the tag name changes.
+       `in` on a nil Params.tags is false, so an untagged post is safe. */ -}}
+{{ return in .Params.tags "cute-dsl" }}

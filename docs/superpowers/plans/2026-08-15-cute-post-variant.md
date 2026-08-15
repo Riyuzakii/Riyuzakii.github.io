@@ -30,7 +30,7 @@
 | `layouts/partials/header.html` | Conditional ⋆｡°✩ flourish |
 | `layouts/index.html` | ♡ marker beside cute posts |
 | `assets/css/cute.css` | The entire visual variant |
-| `static/fonts/nunito-*.woff2`, `static/fonts/OFL-Nunito.txt` | Vendored font |
+| `static/fonts/nunito-roman.woff2`, `nunito-italic.woff2`, `OFL-Nunito.txt` | Vendored font. Two files, not three: the roman is a variable font (`wght` 200–1000), so one file covers 400 and 700 — Google serves the byte-identical file for both. |
 | `README.md` | Documents the opt-in tag |
 
 Verification is build-and-assert: run `hugo`, then grep the generated HTML and CSS. There is no unit test framework; the build output is the thing under test.

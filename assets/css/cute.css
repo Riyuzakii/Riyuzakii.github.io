@@ -1,0 +1,24 @@
+/* The cute variant, for posts tagged ["cute-dsl"].
+   Loaded only on those pages and scoped entirely under
+   :root[data-style="cute"], so it cannot leak onto an ordinary post. */
+
+/* Nunito ships as a variable font on the roman axis, so ONE file covers 400
+   and 700 — hence the weight range rather than two @font-face blocks. Google
+   serves the same byte-identical file for both weights, and vendoring it
+   twice would just be 39KB of duplication. The italic is a separate static
+   face; the theme needs a real italic because h2, h3 and blockquotes are
+   italic. */
+@font-face {
+  font-family: "Nunito";
+  src: url("/fonts/nunito-roman.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Nunito";
+  src: url("/fonts/nunito-italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
