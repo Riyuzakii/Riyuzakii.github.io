@@ -49,7 +49,17 @@
       <link>{{ .Permalink }}</link>
       <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
       <guid>{{ .Permalink }}</guid>
-      <description>{{ .Summary | html }}</description>
+      {{- /*
+        Not `.Summary | html`: the summary is rendered HTML, so it carries the
+        margin-note scaffolding — <label class="margin-toggle">, the hidden
+        <input type="checkbox"> and the note <span>. A feed reader has none of
+        this site's CSS, so it draws a stray checkbox mid-sentence with the
+        note text spliced into the prose: precisely the interruption the
+        margin notes exist to avoid. plainify strips the markup; an explicit
+        front-matter `description` wins if the post has one, matching what
+        head.html already does for the meta description.
+      */ -}}
+      <description>{{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 300 }}{{ end }}</description>
     </item>
     {{ end }}
   </channel>

@@ -2,6 +2,9 @@
   <a class="site-name" href="{{ "/" | relURL }}">{{ .Site.Title }}</a>
   <nav>
     {{ range .Site.Menus.main }}<a href="{{ .URL | relURL }}">{{ .Name }}</a>{{ end }}
-    <button class="theme-toggle" type="button" onclick="(function(){var d=document.documentElement;var n=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',n);try{localStorage.setItem('theme',n)}catch(e){}})()">dark</button>
+    {{- /* Label and handler are set by the script in head.html, which is the
+           only place that knows the effective theme. These attributes are the
+           pre-script default. */}}
+    <button class="theme-toggle" type="button" aria-label="Switch to dark theme">dark</button>
   </nav>
 </header>

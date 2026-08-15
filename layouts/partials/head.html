@@ -2,19 +2,52 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}</title>
 <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
-{{ with .OutputFormats.Get "rss" }}
-  <link rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" href="{{ .Permalink }}">
-{{ end }}
+{{- /* Hardcoded rather than {{ with .OutputFormats.Get "rss" }}: that is nil
+       on kind: page, so single posts — the pages a reader is on when they
+       think about subscribing — advertised no feed at all. There is exactly
+       one feed on this site, so always point at it. */}}
+<link rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" href="{{ "/index.xml" | absURL }}">
 {{ $css := resources.Get "css/main.css" | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
 {{ $chroma := resources.Get "css/chroma.css" | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $chroma.RelPermalink }}" integrity="{{ $chroma.Data.Integrity }}">
 <script>
-  // Applied before first paint so the page never flashes the wrong theme.
   (function () {
-    try {
-      var t = localStorage.getItem("theme");
-      if (t) document.documentElement.setAttribute("data-theme", t);
-    } catch (e) {}
+    var root = document.documentElement;
+    var stored = null;
+    try { stored = localStorage.getItem("theme"); } catch (e) {}
+    // Applied before first paint so the page never flashes the wrong theme.
+    if (stored === "light" || stored === "dark") root.setAttribute("data-theme", stored);
+
+    // The attribute is absent until the reader makes an explicit choice, so
+    // "no attribute" does not mean light — it means whatever the OS asked
+    // for. Reading the attribute alone made the first click a no-op on an
+    // OS-dark machine: it set data-theme="dark" on a page already dark, and
+    // the reader had to click twice to reach light.
+    function current() {
+      var explicit = root.getAttribute("data-theme");
+      if (explicit === "light" || explicit === "dark") return explicit;
+      return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+
+    // The button is an action, not a state: it is labelled with the theme it
+    // will switch to, and the aria-label spells that out.
+    function describe(button) {
+      var next = current() === "dark" ? "light" : "dark";
+      button.textContent = next;
+      button.setAttribute("aria-label", "Switch to " + next + " theme");
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      var button = document.querySelector(".theme-toggle");
+      if (!button) return;
+      describe(button);
+      button.addEventListener("click", function () {
+        var next = current() === "dark" ? "light" : "dark";
+        root.setAttribute("data-theme", next);
+        try { localStorage.setItem("theme", next); } catch (e) {}
+        describe(button);
+      });
+    });
   })();
 </script>
