@@ -14,14 +14,23 @@
    is the upstream `trac` palette with each colour replaced by the matching
    variable. */
 
-pre.chroma, .highlight pre {
-  background: var(--code-bg) !important;
+/* Plain `pre`, not `pre.chroma`: Goldmark emits an indented (non-fenced) code
+   block as a bare <pre><code>, which Chroma never touches. Selecting only the
+   highlighted case left those blocks with no background, no padding and — the
+   part that actually broke the layout — no overflow-x, so a long line ran out
+   of the column and under the margin notes. */
+pre {
+  background: var(--code-bg);
   color: var(--fg);
   padding: 1rem 1.25rem;
   overflow-x: auto;
   border-radius: 3px;
   font-size: 0.95rem;
   line-height: 1.5;
+  /* tabWidth in hugo.toml only affects Chroma's own output; a literal tab in
+     an unhighlighted block still renders at the UA default of 8 columns. */
+  -moz-tab-size: 2;
+  tab-size: 2;
 }
 code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
