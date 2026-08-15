@@ -59,7 +59,21 @@
         front-matter `description` wins if the post has one, matching what
         head.html already does for the meta description.
       */ -}}
-      <description>{{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 300 }}{{ end }}</description>
+      {{- /*
+        The htmlUnescape calls are load-bearing, not decoration. `plainify`
+        and `truncate` both return template.HTML, which html/template emits
+        verbatim — so anything they hand back goes into the XML unescaped.
+        Goldmark's typographer writes &rsquo; &ldquo; &mdash; and truncate
+        appends &hellip;, none of which are defined in XML: a single smart
+        apostrophe in a summary made the whole feed fail to parse.
+        htmlUnescape turns those back into real characters AND returns a
+        plain string, so the final value goes through the template's own
+        escaping and &, < and > come out as &amp;, &lt; and &gt;. Removing
+        either call reintroduces one half of the bug. There is a regression
+        post for this: a title and body containing & < > " and a curly
+        apostrophe must leave `public/index.xml` well-formed.
+      */ -}}
+      <description>{{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | htmlUnescape | truncate 300 "…" | htmlUnescape }}{{ end }}</description>
     </item>
     {{ end }}
   </channel>
