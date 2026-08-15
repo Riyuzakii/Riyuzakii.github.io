@@ -7,6 +7,14 @@ disableKinds = ["taxonomy", "term"]
 [permalinks]
   posts = "/:slug/"
 
+# README tells you a post can be published by adding a Markdown file through
+# github.com, which bypasses archetypes/default.md and so has no `date`. A
+# dateless post used to render a "0001" year heading and a
+# "Mon, 01 Jan 0001" pubDate that some feed validators reject. Fall back to
+# the file's modification time when no date field is present.
+[frontmatter]
+  date = [":default", ":fileModTime"]
+
 [params]
   description = "Notes on what I've been working on."
 
@@ -21,12 +29,9 @@ disableKinds = ["taxonomy", "term"]
   lineNos = false
   tabWidth = 2
 
-[[menu.main]]
-  name = "writing"
-  url = "/"
-  weight = 1
-
+# No "writing" entry: the site name in the header already links to /, and two
+# controls side by side going to the same place reads as a mistake.
 [[menu.main]]
   name = "about"
   url = "/about/"
-  weight = 2
+  weight = 1
