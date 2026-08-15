@@ -1,6 +1,6 @@
 baseURL = "https://riyuzakii.github.io/"
 locale = "en-us"
-title = "Aditya Rohan"
+title = "2 Brain Cells"
 enableRobotsTXT = true
 disableKinds = ["taxonomy", "term"]
 
