@@ -19,7 +19,18 @@
 {{- if ge $limit 1 -}}
 {{- $pages = $pages | first $limit -}}
 {{- end -}}
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+{{- /*
+  This template renders through html/template (Hugo's default for
+  overridden output-format templates), which contextually HTML-escapes
+  pipeline output — e.g. "&" in a post title becomes "&amp;", which is
+  required for the feed to stay well-formed XML. Do NOT disable that
+  escaping (e.g. via outputFormats.RSS.isPlainText) to "fix" the XML
+  declaration below — that was tried and it turns off escaping for
+  EVERYTHING, including titles/descriptions, which silently corrupts the
+  feed the moment a post title contains &, <, >, or ". Instead, mark only
+  the literal XML declaration itself as safe so it's emitted verbatim.
+*/ -}}
+{{ printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>{{ if eq .Title .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{ . }} on {{ end }}{{ .Site.Title }}{{ end }}</title>
